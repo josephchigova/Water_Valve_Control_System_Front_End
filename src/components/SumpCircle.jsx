@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function SumpCircle({ label, level }) {
+  const [isOn, setIsOn] = useState(false); // Toggle state
+
   const radius = 150;
   const stroke = 32;
   const normalizedRadius = radius - stroke * 2;
   const circumference = normalizedRadius * 2 * Math.PI;
   const strokeDashoffset = circumference - (level / 100) * circumference;
+
+  const handleToggle = () => {
+    setIsOn(prev => !prev);
+    // Optionally call API or trigger logic here
+  };
 
   return (
     <div className="sump-circle">
@@ -19,7 +26,7 @@ export default function SumpCircle({ label, level }) {
           cy={radius}
         />
         <circle
-          stroke="#0077ff"
+          stroke={isOn ? "#00cc66" : "#0077ff"}
           fill="transparent"
           strokeWidth={stroke}
           strokeDasharray={`${circumference} ${circumference}`}
@@ -41,7 +48,16 @@ export default function SumpCircle({ label, level }) {
           {level}%
         </text>
       </svg>
+
       <div className="sump-label">{label}</div>
+
+      <div className="sump-controller">
+        <label className="switch">
+          <input type="checkbox" checked={isOn} onChange={handleToggle} />
+          <span className="slider round"></span>
+        </label>
+        <div className="status-label">{isOn ? 'ON' : 'OFF'}</div>
+      </div>
     </div>
   );
 }

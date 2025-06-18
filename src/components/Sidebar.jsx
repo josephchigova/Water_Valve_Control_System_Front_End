@@ -1,10 +1,9 @@
-import React from 'react';
 import { NavLink } from 'react-router-dom';
 
 export default function Sidebar() {
   return (
     <nav className="sidebar">
-      <h2 className="sidebar-title">Water Valve System</h2>
+      <h2 className="sidebar-title">Water Valve Control System</h2>
       <ul>
         <li>
           <NavLink to="/" end className={({ isActive }) => (isActive ? 'active' : '')}>
